@@ -10,7 +10,7 @@ using UnityEngine;
 namespace ModdingUtils.Patches
 {
     [Serializable]
-    [HarmonyPatch(typeof(CardChoice), "GetRanomCard")]
+    [HarmonyPatch(typeof(CardChoice), "GetRandomCard")]
     public class CardChoicePatchGetRanomCard
     {
         internal static bool CardChoiceSpawnUniqueCardPatch = false;

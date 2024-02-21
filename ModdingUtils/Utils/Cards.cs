@@ -1110,26 +1110,51 @@ namespace ModdingUtils.Utils
 
             CardBar[] cardBars = (CardBar[])Traverse.Create(CardBarHandler.instance).Field("cardBars").GetValue();
 
-            Traverse.Create(cardBars[playerID]).Field("ci").SetValue(card);
-            GameObject source = (GameObject)Traverse.Create(cardBars[playerID]).Field("source").GetValue();
-            GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(source, source.transform.position, source.transform.rotation, source.transform.parent);
+            //cardBars[playerID].AddCard(card);
+
+            GameObject source = (GameObject)Traverse.Create(cardBars[playerID]).Field("m_source").GetValue();
+            GameObject gameObject = GameObject.Instantiate(source, source.transform.position, source.transform.rotation, source.transform.parent);
             gameObject.transform.localScale = Vector3.one;
-            string text = card.CardName;
-            if (twoLetterCode != "") { text = twoLetterCode; }
-            text = text.Substring(0, 2);
-            string text2 = text[0].ToString().ToUpper();
-            if (text.Length > 1)
+            string cardName = card.CardName;
+            cardName = cardName.Substring(0, 2);
+            string text = cardName[0].ToString().ToUpper();
+            if (cardName.Length > 1)
             {
-                string str = text[1].ToString().ToLower();
-                text = text2 + str;
+                string text2 = cardName[1].ToString().ToLower();
+                cardName = text + text2;
             }
             else
             {
-                text = text2;
+                cardName = text;
             }
-            gameObject.GetComponentInChildren<TextMeshProUGUI>().text = text;
-            Traverse.Create(gameObject.GetComponent<CardBarButton>()).Field("card").SetValue(card);
-            gameObject.gameObject.SetActive(true);
+
+            gameObject.GetComponentInChildren<UILocalizedString>().Text.text = cardName;
+            gameObject.GetComponent<CardBarButton>().m_cardInfo = card;
+            gameObject.gameObject.SetActive(value: true);
+            List<CardBarButton> cards = (List<CardBarButton>)Traverse.Create(cardBars[playerID]).GetValue("m_cards");
+            cards.Insert(0, gameObject.GetComponent<CardBarButton>());
+            Traverse.Create(cardBars[playerID]).Field("m_cards").SetValue(cards);
+
+            //Traverse.Create(cardBars[playerID]).Field("ci").SetValue(card);
+            //GameObject source = (GameObject)Traverse.Create(cardBars[playerID]).Field("source").GetValue();
+            //GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(source, source.transform.position, source.transform.rotation, source.transform.parent);
+            //gameObject.transform.localScale = Vector3.one;
+            //string text = card.CardName;
+            //if (twoLetterCode != "") { text = twoLetterCode; }
+            //text = text.Substring(0, 2);
+            //string text2 = text[0].ToString().ToUpper();
+            //if (text.Length > 1)
+            //{
+            //    string str = text[1].ToString().ToLower();
+            //    text = text2 + str;
+            //}
+            //else
+            //{
+            //    text = text2;
+            //}
+            //gameObject.GetComponentInChildren<TextMeshProUGUI>().text = text;
+            //Traverse.Create(gameObject.GetComponent<CardBarButton>()).Field("card").SetValue(card);
+            //gameObject.gameObject.SetActive(true);
         }
 
         public void AddHiddenCard(CardInfo card)
