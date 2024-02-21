@@ -47,7 +47,7 @@ namespace ModdingUtils.MonoBehaviours
         }
         private bool HealthInRange()
         {
-            return (data.health <= data.maxHealth * percThreshMax && data.health >= data.maxHealth * percThreshMin);
+            return (data.health <= data.MaxHealth * percThreshMax && data.health >= data.MaxHealth * percThreshMin);
         }
         public override void OnOnDisable()
         {

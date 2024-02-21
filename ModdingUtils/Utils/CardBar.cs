@@ -97,19 +97,18 @@ namespace ModdingUtils.Utils
         [UnboundRPC]
         private static void RPCA_ShowCard(int playerID, string objectName)
         {
-            int cardID = Cards.instance.GetCardIDFromObjectName(objectName);
+            //int cardID = Cards.instance.GetCardIDFromObjectName(objectName);
 
-            try
-            {
-                if (Cards.instance.GetCardWithID(cardID) == null) { return; }
-            }
-            catch
-            {
-                return;
-            }
-            instance.PlayersCardBar(playerID).OnHover(Cards.instance.GetCardWithID(cardID), Vector3.zero);
-            ((GameObject)Traverse.Create(instance.PlayersCardBar(playerID)).Field("currentCard").GetValue()).gameObject.transform.localScale = Vector3.one * cardLocalScaleMult;
-
+            //try
+            //{
+            //    if (Cards.instance.GetCardWithID(cardID) == null) { return; }
+            //}
+            //catch
+            //{
+            //    return;
+            //}
+            //instance.PlayersCardBar(playerID).OnHover(Cards.instance.GetCardWithID(cardID), Vector3.zero);
+            //((GameObject)Traverse.Create(instance.PlayersCardBar(playerID)).Field("currentCard").GetValue()).gameObject.transform.localScale = Vector3.one * cardLocalScaleMult;
         }
 
         public void HideCard(Player player)
@@ -273,7 +272,7 @@ namespace ModdingUtils.Utils
             GameObject source = (GameObject)Traverse.Create(instance.PlayersCardBar(playerID)).Field("source").GetValue();
             GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(source, source.transform.position, source.transform.rotation, source.transform.parent);
             gameObject.transform.localScale = Vector3.one;
-            string text = card.cardName;
+            string text = card.CardName;
             if (twoLetterCode != "") { text = twoLetterCode; }
             while (text.Length < 2)
             {

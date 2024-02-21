@@ -110,7 +110,7 @@ namespace ModdingUtils.Utils
                     { }
                     catch (Exception exception)
                     {
-                        UnityEngine.Debug.LogError("[ModdingUtils] EXCEPTION: " + exception.GetType().ToString() + "\nThrown by: " + card.GetComponent<CustomCard>().GetModName() + " - " + card.cardName + " - " + "OnReassignCard(Player, Gun, GunAmmo, HealthHandler, Gravity, Block, CharacterStatModifiers)");
+                        UnityEngine.Debug.LogError("[ModdingUtils] EXCEPTION: " + exception.GetType().ToString() + "\nThrown by: " + card.GetComponent<CustomCard>().GetModName() + " - " + card.CardName + " - " + "OnReassignCard(Player, Gun, GunAmmo, HealthHandler, Gravity, Block, CharacterStatModifiers)");
                     }
                 }
 
@@ -777,7 +777,7 @@ namespace ModdingUtils.Utils
                 { }
                 catch (Exception exception)
                 {
-                    UnityEngine.Debug.LogError("[ModdingUtils] EXCEPTION: " + exception.GetType().ToString() + "\nThrown by: " + card.GetComponent<CustomCard>().GetModName() + " - " + card.cardName + " - " + "OnReassignCard(Player, Gun, GunAmmo, HealthHandler, Gravity, Block, CharacterStatModifiers)");
+                    UnityEngine.Debug.LogError("[ModdingUtils] EXCEPTION: " + exception.GetType().ToString() + "\nThrown by: " + card.GetComponent<CustomCard>().GetModName() + " - " + card.CardName + " - " + "OnReassignCard(Player, Gun, GunAmmo, HealthHandler, Gravity, Block, CharacterStatModifiers)");
                 }
             }
 
@@ -1028,7 +1028,7 @@ namespace ModdingUtils.Utils
         {
             try
             {
-                return allCards.Where(card => card.cardName == cardName).Select(card => GetCardID(card)).First();
+                return allCards.Where(card => card.CardName == cardName).Select(card => GetCardID(card)).First();
             }
             catch
             {
@@ -1064,7 +1064,7 @@ namespace ModdingUtils.Utils
         [Obsolete("GetCardWithName is deprecated since multiple cards can have the same cardName. Use GetCardWithObjectName instead and provided the desired Card's .name field.")]
         public CardInfo GetCardWithName(string cardName)
         {
-            return allCards.Where(card => card.cardName == cardName).First();
+            return allCards.Where(card => card.CardName == cardName).First();
         }
         public CardInfo GetCardWithObjectName(string name)
         {
@@ -1114,7 +1114,7 @@ namespace ModdingUtils.Utils
             GameObject source = (GameObject)Traverse.Create(cardBars[playerID]).Field("source").GetValue();
             GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(source, source.transform.position, source.transform.rotation, source.transform.parent);
             gameObject.transform.localScale = Vector3.one;
-            string text = card.cardName;
+            string text = card.CardName;
             if (twoLetterCode != "") { text = twoLetterCode; }
             text = text.Substring(0, 2);
             string text2 = text[0].ToString().ToUpper();

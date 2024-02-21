@@ -661,7 +661,7 @@ namespace ModdingUtils.AIMinion
             // set maxHealth
             if (maxHealth != null)
             {
-                AIdata.maxHealth = (float)maxHealth;
+                AIdata.MaxHealth = (float)maxHealth;
             }
 
 

@@ -62,12 +62,12 @@ namespace ModdingUtils.Extensions
         }
         public void ApplyCharacterDataModifier(CharacterData data)
         {
-            maxHealth_delta = data.maxHealth * maxHealth_mult + maxHealth_add - data.maxHealth;
+            maxHealth_delta = data.MaxHealth * maxHealth_mult + maxHealth_add - data.MaxHealth;
             numberOfJumps_delta = data.jumps * numberOfJumps_mult + numberOfJumps_add - data.jumps;
 
-            float hpRatio = data.health / data.maxHealth;
-            data.maxHealth += maxHealth_delta;
-            data.health = data.maxHealth * hpRatio;
+            float hpRatio = data.health / data.MaxHealth;
+            data.MaxHealth += maxHealth_delta;
+            data.health = data.MaxHealth * hpRatio;
             data.jumps += numberOfJumps_delta;
 
             // update player stuff
@@ -85,14 +85,14 @@ namespace ModdingUtils.Extensions
         }
         public void RemoveCharacterDataModifier(CharacterData data, bool clear = true)
         {
-            float hpRatio = data.health / data.maxHealth;
-            data.maxHealth -= maxHealth_delta;
-            data.health = data.maxHealth * hpRatio;
+            float hpRatio = data.health / data.MaxHealth;
+            data.MaxHealth -= maxHealth_delta;
+            data.health = data.MaxHealth * hpRatio;
             data.jumps -= numberOfJumps_delta;
 
-            if (data.maxHealth < 1f)
+            if (data.MaxHealth < 1f)
             {
-                data.maxHealth = 1f;
+                data.MaxHealth = 1f;
             }
 
             // update player stuff
