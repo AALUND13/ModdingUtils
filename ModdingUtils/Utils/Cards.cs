@@ -1110,64 +1110,27 @@ namespace ModdingUtils.Utils
             UnityEngine.Debug.Log(1);
             CardBar[] cardBars = (CardBar[])Traverse.Create(CardBarHandler.instance).Field("cardBars").GetValue();
 
-            //cardBars[playerID].AddCard(card);
-            UnityEngine.Debug.Log(2);
-            GameObject source = (GameObject)Traverse.Create(cardBars[playerID]).Field("m_source").GetValue();
-            UnityEngine.Debug.Log(3);
+            GameObject source = (GameObject)Traverse.Create(cardBars[playerID]).Field("m_source").GetValue();;
             GameObject gameObject = GameObject.Instantiate(source, source.transform.position, source.transform.rotation, source.transform.parent);
-            UnityEngine.Debug.Log(4);
             gameObject.transform.localScale = Vector3.one;
-            UnityEngine.Debug.Log(5);
             string cardName = card.CardName;
-            UnityEngine.Debug.Log(6);
             cardName = cardName.Substring(0, 2);
-            UnityEngine.Debug.Log(7);
             string text = cardName[0].ToString().ToUpper();
-            UnityEngine.Debug.Log(8);
             if (cardName.Length > 1)
             {
-                UnityEngine.Debug.Log(9);
                 string text2 = cardName[1].ToString().ToLower();
                 cardName = text + text2;
             }
             else
             {
-                UnityEngine.Debug.Log(9);
                 cardName = text;
             }
-            UnityEngine.Debug.Log(10);
             gameObject.GetComponentInChildren<UILocalizedString>().Text.text = cardName;
-            UnityEngine.Debug.Log(11);
-            gameObject.GetComponent<CardBarButton>().m_cardInfo = card;
-            UnityEngine.Debug.Log(12);
+            gameObject.GetComponent<CardBarButton>().m_cardInfo = card;;
             gameObject.gameObject.SetActive(true);
-            UnityEngine.Debug.Log(13);
             List<CardBarButton> cards = (List<CardBarButton>)Traverse.Create(cardBars[playerID]).Field("m_cards").GetValue();
-            UnityEngine.Debug.Log(14);
             cards.Insert(0, gameObject.GetComponent<CardBarButton>());
-            UnityEngine.Debug.Log(15);
             Traverse.Create(cardBars[playerID]).Field("m_cards").SetValue(cards);
-            UnityEngine.Debug.Log("Done");
-            //Traverse.Create(cardBars[playerID]).Field("ci").SetValue(card);
-            //GameObject source = (GameObject)Traverse.Create(cardBars[playerID]).Field("source").GetValue();
-            //GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(source, source.transform.position, source.transform.rotation, source.transform.parent);
-            //gameObject.transform.localScale = Vector3.one;
-            //string text = card.CardName;
-            //if (twoLetterCode != "") { text = twoLetterCode; }
-            //text = text.Substring(0, 2);
-            //string text2 = text[0].ToString().ToUpper();
-            //if (text.Length > 1)
-            //{
-            //    string str = text[1].ToString().ToLower();
-            //    text = text2 + str;
-            //}
-            //else
-            //{
-            //    text = text2;
-            //}
-            //gameObject.GetComponentInChildren<TextMeshProUGUI>().text = text;
-            //Traverse.Create(gameObject.GetComponent<CardBarButton>()).Field("card").SetValue(card);
-            //gameObject.gameObject.SetActive(true);
         }
 
         public void AddHiddenCard(CardInfo card)
