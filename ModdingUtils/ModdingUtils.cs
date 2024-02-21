@@ -1,21 +1,17 @@
 ﻿using BepInEx; // requires BepInEx.dll and BepInEx.Harmony.dll
-using UnboundLib; // requires UnboundLib.dll
-using UnboundLib.Cards; // " "
-using UnityEngine; // requires UnityEngine.dll, UnityEngine.CoreModule.dll, and UnityEngine.AssetBundleModule.dll
 using HarmonyLib; // requires 0Harmony.dll
-using System.Collections;
-using Photon.Pun;
-using Jotunn.Utils;
-using UnboundLib.GameModes;
-using System.Reflection;
-using System.Linq;
-using System.Collections.Generic;
-using ModdingUtils.Extensions;
-using ModdingUtils.MonoBehaviours;
 using ModdingUtils.AIMinion;
+using ModdingUtils.Extensions;
 using ModdingUtils.GameModes;
-using On;
+using ModdingUtils.MonoBehaviours;
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using UnboundLib; // requires UnboundLib.dll
+using UnboundLib.GameModes;
+using UnityEngine; // requires UnityEngine.dll, UnityEngine.CoreModule.dll, and UnityEngine.AssetBundleModule.dll
 
 // requires Assembly-CSharp.dll
 // requires MMHOOK-Assembly-CSharp.dll
@@ -41,10 +37,10 @@ namespace ModdingUtils
 
             // reset player blacklisted categories on game start
             GameModeManager.AddHook(GameModeHooks.HookGameStart, CharacterStatModifiersExtension.Reset);
-            
+
             GameModeManager.AddHook(GameModeHooks.HookBattleStart, (gm) => ResetEffectsBetweenBattles());
             GameModeManager.AddHook(GameModeHooks.HookBattleStart, (gm) => ResetTimers()); // I sure hope this doesn't have unintended side effects...
-            
+
             GameModeManager.AddHook(GameModeHooks.HookPointEnd, (gm) => ResetEffectsBetweenBattles());
             GameModeManager.AddHook(GameModeHooks.HookPointEnd, (gm) => ResetTimers());
 
@@ -89,7 +85,7 @@ namespace ModdingUtils
             yield return Utils.CardBarUtils.instance.EndPickPhaseShow();
             yield break;
         }
-        
+
         private IEnumerator ResetEffectsBetweenBattles()
         {
             Player[] players = PlayerManager.instance.players.ToArray();
@@ -113,7 +109,7 @@ namespace ModdingUtils
             }
             yield break;
         }
-        
+
         private const string ModId = "pykess.rounds.plugins.moddingutils";
 
         private const string ModName = "Modding Utilities";

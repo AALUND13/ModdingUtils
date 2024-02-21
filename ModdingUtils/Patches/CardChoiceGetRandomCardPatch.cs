@@ -40,11 +40,11 @@ namespace ModdingUtils.Patches
             {
                 if ((bool)CardChoiceVisuals.instance.GetFieldValue("isShowinig"))
                 {
-                    List<string> spawnedCards = ((List<GameObject>)CardChoice.instance.GetFieldValue("spawnedCards")).Select(obj => obj.GetComponent<CardInfo>().cardName).ToList();
+                    List<string> spawnedCards = ((List<GameObject>)CardChoice.instance.GetFieldValue("spawnedCards")).Select(obj => obj.GetComponent<CardInfo>().CardName).ToList();
                     if(CardChoiceSpawnUniqueCardPatch)
-                        validCards = allowedCards.Where(c => c.categories.Contains(UniqueCardPatch.GetType("CustomCardCategories").GetFieldValue("CanDrawMultipleCategory")) || !spawnedCards.Contains(c.cardName)).ToArray();
+                        validCards = allowedCards.Where(c => c.categories.Contains(UniqueCardPatch.GetType("CustomCardCategories").GetFieldValue("CanDrawMultipleCategory")) || !spawnedCards.Contains(c.CardName)).ToArray();
                     else
-                        validCards = allowedCards.Where(c => !spawnedCards.Contains(c.cardName)).ToArray();
+                        validCards = allowedCards.Where(c => !spawnedCards.Contains(c.CardName)).ToArray();
                 }
             }
                 catch (NullReferenceException)
@@ -56,7 +56,7 @@ namespace ModdingUtils.Patches
                 if (CardChoiceSpawnUniqueCardPatch)
                     return ((CardInfo)UniqueCardPatch.GetType("CardChoiceSpawnUniqueCardPatch").GetField("NullCard", BindingFlags.NonPublic | BindingFlags.Static).GetValue(null)).gameObject;
                 else
-                    return CardChoice.instance.cards.FirstOrDefault(c => c.cardName.ToLower() == "huge").gameObject;//return huge so that the game doesn't crash
+                    return CardChoice.instance.cards.FirstOrDefault(c => c.CardName.ToLower() == "huge").gameObject;//return huge so that the game doesn't crash
             }
             return OrignialGetRanomCard(validCards);
         }
