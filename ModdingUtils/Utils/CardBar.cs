@@ -97,18 +97,23 @@ namespace ModdingUtils.Utils
         [UnboundRPC]
         private static void RPCA_ShowCard(int playerID, string objectName)
         {
-            //int cardID = Cards.instance.GetCardIDFromObjectName(objectName);
 
-            //try
-            //{
-            //    if (Cards.instance.GetCardWithID(cardID) == null) { return; }
-            //}
-            //catch
-            //{
-            //    return;
-            //}
-            //instance.PlayersCardBar(playerID).OnHover(Cards.instance.GetCardWithID(cardID), Vector3.zero);
-            //((GameObject)Traverse.Create(instance.PlayersCardBar(playerID)).Field("currentCard").GetValue()).gameObject.transform.localScale = Vector3.one * cardLocalScaleMult;
+            int cardID = Cards.instance.GetCardIDFromObjectName(objectName);
+
+
+            List<CardBarButton> cards = (List<CardBarButton>)Traverse.Create(instance.PlayersCardBar(playerID)).Field("m_cards").GetValue();
+            int cardIndex = cards.FindIndex(card => Cards.instance.GetCardID(card.m_cardInfo) == cardID);
+            try
+            {
+                if (Cards.instance.GetCardWithID(cardID) == null) { return; }
+                if (cardIndex == -1) { return; }
+            }
+            catch
+            {
+                return;
+            }
+            instance.PlayersCardBar(playerID).OnHover(cardIndex);
+            ((GameObject)Traverse.Create(instance.PlayersCardBar(playerID)).Field("m_currentCard").GetValue()).gameObject.transform.localScale = Vector3.one * cardLocalScaleMult;
         }
 
         public void HideCard(Player player)
