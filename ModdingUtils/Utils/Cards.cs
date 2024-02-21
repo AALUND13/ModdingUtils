@@ -1107,7 +1107,6 @@ namespace ModdingUtils.Utils
 
         public static void SilentAddToCardBar(int playerID, CardInfo card, string twoLetterCode = "", float forceDisplay = 0f, float forceDisplayDelay = 0f)
         {
-            UnityEngine.Debug.Log(1);
             CardBar[] cardBars = (CardBar[])Traverse.Create(CardBarHandler.instance).Field("cardBars").GetValue();
 
             GameObject source = (GameObject)Traverse.Create(cardBars[playerID]).Field("m_source").GetValue();;
